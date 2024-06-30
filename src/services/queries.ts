@@ -43,9 +43,9 @@ export const useGetAllUsers = () => {
   });
 };
 
-export const useGetUser = (userId: string) => {
+export const useGetUser = (id: string) => {
   return useQuery({
     queryKey: ["user"],
-    queryFn: () => getUserAPI(userId),
+    queryFn: async () => getUserAPI(id),
   });
 };

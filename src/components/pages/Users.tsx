@@ -39,13 +39,13 @@ const Users: React.FC = () => {
     name: "students",
   });
   const userId = useWatch({ control, name: "id" });
+  const isTeacherData = useWatch({ control, name: "isTeacher" });
 
   // react-query-apis
   const statesQueryData = useGetStates();
   const languagesQueryData = useGetLanguages();
   const genderQueryData = useGetGenders();
   const skillsQueryData = useGetSkills();
-  const isTeacherData = useWatch({ control, name: "isTeacher" });
   const usersQueryData = useGetAllUsers();
   const userQueryData = useGetUser(userId);
 
@@ -65,6 +65,10 @@ const Users: React.FC = () => {
       unregister("students");
     }
   }, [isTeacherData, replace, unregister]);
+
+  useEffect(() => {
+    if (userQueryData.data) reset(userQueryData.data);
+  }, [reset, userQueryData.data]);
 
   return (
     <Container maxWidth="sm" component="form">

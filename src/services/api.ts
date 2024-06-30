@@ -40,6 +40,7 @@ export const getAllUsersAPI = () => {
 
 export const getUserAPI = async (_userId: string): Promise<TSchema> => {
   const response = await axios.get<ApiGet>(`${LOCAL_SERVER_API_ENDPOINT}/users/${_userId}`);
+  console.log("inside-api-get-user-api", _userId, response.data);
   const {
     data: {
       id,
