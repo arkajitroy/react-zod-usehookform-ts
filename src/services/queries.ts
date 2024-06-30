@@ -1,5 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAllGendersAPI, getAllLanguagesAPI, getAllSkillsAPI, getAllStatesAPI } from "./api";
+import {
+  getAllGendersAPI,
+  getAllLanguagesAPI,
+  getAllSkillsAPI,
+  getAllStatesAPI,
+  getAllUsersAPI,
+  getUserAPI,
+} from "./api";
 
 export const useGetStates = () => {
   return useQuery({
@@ -26,5 +33,19 @@ export const useGetSkills = () => {
   return useQuery({
     queryKey: ["skills"],
     queryFn: () => getAllSkillsAPI(),
+  });
+};
+
+export const useGetAllUsers = () => {
+  return useQuery({
+    queryKey: ["users"],
+    queryFn: () => getAllUsersAPI(),
+  });
+};
+
+export const useGetUser = (userId: string) => {
+  return useQuery({
+    queryKey: ["user"],
+    queryFn: () => getUserAPI(userId),
   });
 };
