@@ -1,5 +1,5 @@
 import React, { Fragment, useEffect } from "react";
-import { useFieldArray, useFormContext, useWatch } from "react-hook-form";
+import { SubmitHandler, useFieldArray, useFormContext, useWatch } from "react-hook-form";
 import {
   Button,
   Container,
@@ -29,19 +29,22 @@ import {
   useGetStates,
   useGetUser,
 } from "../../services/queries";
+import { useCreateUser, useEditUser } from "../../services/mutation";
 import { formDefaultValues } from "../../constants/defaultValues";
 
 const Users: React.FC = () => {
-  const { watch, control, unregister, reset, setValue } = useFormContext<TSchema>();
-  // field-array-functionality
+  const { watch, control, unregister, reset, setValue, handleSubmit } = useFormContext<TSchema>();
+
+  // Field array functionality
   const { append, fields, remove, replace } = useFieldArray({
     control,
     name: "students",
   });
   const userId = useWatch({ control, name: "id" });
   const isTeacherData = useWatch({ control, name: "isTeacher" });
+  const variant = useWatch({ control, name: "variant" });
 
-  // react-query-apis
+  // Query APIs
   const statesQueryData = useGetStates();
   const languagesQueryData = useGetLanguages();
   const genderQueryData = useGetGenders();
@@ -49,14 +52,25 @@ const Users: React.FC = () => {
   const usersQueryData = useGetAllUsers();
   const userQueryData = useGetUser(userId);
 
-  // handle-change and handle-clicks
+  // Mutation API
+  const createUserMutation = useCreateUser();
+  const editUserMutation = useEditUser();
+
+  // Handle change and click events
   const handleResetFormClick = () => reset(formDefaultValues);
   const handleSwitchUserClick = (userId: string) => setValue("id", userId);
+  const handleFormSubmitClick: SubmitHandler<TSchema> = (data) => {
+    if (variant === "create") {
+      createUserMutation.mutate(data);
+    } else if (variant === "edit") {
+      editUserMutation.mutate(data);
+    }
+  };
 
-  // use-effects
+  // useEffects
   useEffect(() => {
-    const subscribe = watch((value) => console.log("form-values - watch : ", value));
-    return () => subscribe.unsubscribe();
+    const subscription = watch((value) => console.log("form-values - watch:", value));
+    return () => subscription.unsubscribe();
   }, [watch]);
 
   useEffect(() => {
@@ -71,7 +85,7 @@ const Users: React.FC = () => {
   }, [reset, userQueryData.data]);
 
   return (
-    <Container maxWidth="sm" component="form">
+    <Container maxWidth="sm" component="form" onSubmit={handleSubmit(handleFormSubmitClick)}>
       <Stack sx={{ flexDirection: "row", gap: 2 }}>
         <List subheader={<ListSubheader>Users</ListSubheader>}>
           {usersQueryData.data?.map((user) => (
@@ -114,7 +128,7 @@ const Users: React.FC = () => {
 
           <Stack sx={{ flexDirection: "row", justifyContent: "space-between" }}>
             <Button variant="contained" color="warning" type="submit">
-              New User
+              {variant === "create" ? "New user" : "Edit user"}
             </Button>
             <Button onClick={handleResetFormClick}>Reset</Button>
           </Stack>
