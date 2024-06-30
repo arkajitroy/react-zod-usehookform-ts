@@ -1,5 +1,6 @@
 import { FieldValues, Path } from "react-hook-form";
 import { Option } from "./TInputFields";
+import { TextFieldProps } from "@mui/material";
 
 export type TRHFAutocompleteProps<T extends FieldValues> = {
   name: Path<T>;
@@ -42,3 +43,7 @@ export interface RHFSwitchProps<T extends FieldValues> {
   name: Path<T>;
   label: string;
 }
+
+export type RHFTextFieldProps<T extends FieldValues> = {
+  name: Path<T>;
+} & Pick<TextFieldProps, "label">;
