@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import { Stack, TextField } from "@mui/material";
+import { Stack, TextField, Typography } from "@mui/material";
 import { TSchema } from "../../@types/schemas/ZSchemas";
-import { RHFAutoComplete } from "..";
-import { useGetLanguages, useGetStates } from "../../services/queries";
-import RHFToggleButtonGroup from "../custom/RHFToggleButtonGroup";
+import { RHFAutoComplete, RHFDateTimePicker, RHFRadioGroup, RHFToggleButtonGroup } from "..";
+import { useGetGenders, useGetLanguages, useGetSkills, useGetStates } from "../../services/queries";
+import RHFCheckbox from "../custom/RHFCheckbox";
 
 const Users: React.FC = () => {
   const { register, formState, watch } = useFormContext<TSchema>();
@@ -13,6 +13,8 @@ const Users: React.FC = () => {
   // react-query-apis
   const statesQueryData = useGetStates();
   const languagesQueryData = useGetLanguages();
+  const genderQueryData = useGetGenders();
+  const skillsQueryData = useGetSkills();
 
   useEffect(() => {
     const subscribe = watch((value) => console.log("values : ", value));
@@ -36,6 +38,10 @@ const Users: React.FC = () => {
       />
       <RHFAutoComplete<TSchema> name="states" label="States" options={statesQueryData.data} />
       <RHFToggleButtonGroup<TSchema> name="languagesSpoken" options={languagesQueryData.data} />
+      <RHFRadioGroup<TSchema> name="gender" label="Gender" options={genderQueryData.data} />
+      <RHFCheckbox<TSchema> name="skills" label="Skills" options={skillsQueryData.data} />
+      <RHFDateTimePicker<TSchema> name="formerEmploymentPeriod" label="Employment Period" />
+      <Typography>Former Employment Period</Typography>
     </Stack>
   );
 };

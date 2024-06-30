@@ -17,3 +17,14 @@ export type TRHFRadioGroupsProps<T extends FieldValues> = {
   options?: Option[];
   label: string;
 };
+
+export type RHFCheckboxProps<T extends FieldValues> = {
+  name: Path<T>;
+  options?: Option[];
+  label: string;
+};
+
+export type RHFDateTimePickerProps<T extends FieldValues> = {
+  name: Path<T>;
+  label: string;
+};
