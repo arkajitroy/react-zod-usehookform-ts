@@ -6,6 +6,9 @@ export const useCreateUser = () => {
   const queryClient = useQueryClient();
   return useMutation({
     mutationFn: async (payloadData: TSchema) => await addNewUserAPI(payloadData),
-    onSuccess: async () => await queryClient.invalidateQueries({ queryKey: [""] }),
+    onSuccess: async () => {
+      await queryClient.invalidateQueries({ queryKey: ["users"] });
+      alert("Successfully user has been created!");
+    },
   });
 };

@@ -11,41 +11,41 @@ import {
 export const useGetStates = () => {
   return useQuery({
     queryKey: ["states"],
-    queryFn: () => getAllStatesAPI(),
+    queryFn: getAllStatesAPI,
   });
 };
 
 export const useGetLanguages = () => {
   return useQuery({
     queryKey: ["languages"],
-    queryFn: () => getAllLanguagesAPI(),
+    queryFn: getAllLanguagesAPI,
   });
 };
 
 export const useGetGenders = () => {
   return useQuery({
     queryKey: ["genders"],
-    queryFn: () => getAllGendersAPI(),
+    queryFn: getAllGendersAPI,
   });
 };
 
 export const useGetSkills = () => {
   return useQuery({
     queryKey: ["skills"],
-    queryFn: () => getAllSkillsAPI(),
+    queryFn: getAllSkillsAPI,
   });
 };
 
 export const useGetAllUsers = () => {
   return useQuery({
     queryKey: ["users"],
-    queryFn: () => getAllUsersAPI(),
+    queryFn: getAllUsersAPI,
   });
 };
 
 export const useGetUser = (id: string) => {
   return useQuery({
-    queryKey: ["user"],
-    queryFn: async () => getUserAPI(id),
+    queryKey: ["user", id],
+    queryFn: () => getUserAPI(id),
   });
 };
