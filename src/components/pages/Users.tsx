@@ -3,11 +3,16 @@ import { useFormContext } from "react-hook-form";
 import { Stack, TextField } from "@mui/material";
 import { TSchema } from "../../@types/schemas/ZSchemas";
 import { RHFAutoComplete } from "..";
-import { defaultStateOptions } from "../../constants/defaultValues";
+import { useGetLanguages, useGetStates } from "../../services/queries";
+import RHFToggleButtonGroup from "../custom/RHFToggleButtonGroup";
 
 const Users: React.FC = () => {
   const { register, formState, watch } = useFormContext<TSchema>();
   const { errors } = formState;
+
+  // react-query-apis
+  const statesQueryData = useGetStates();
+  const languagesQueryData = useGetLanguages();
 
   useEffect(() => {
     const subscribe = watch((value) => console.log("values : ", value));
@@ -29,7 +34,8 @@ const Users: React.FC = () => {
         error={!!errors.email}
         helperText={errors.email?.message}
       />
-      <RHFAutoComplete<TSchema> name="states" label="States" options={defaultStateOptions} />
+      <RHFAutoComplete<TSchema> name="states" label="States" options={statesQueryData.data} />
+      <RHFToggleButtonGroup<TSchema> name="languagesSpoken" options={languagesQueryData.data} />
     </Stack>
   );
 };
