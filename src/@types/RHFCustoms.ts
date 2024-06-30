@@ -6,3 +6,14 @@ export type TRHFAutocompleteProps<T extends FieldValues> = {
   options?: Option[];
   label: string;
 };
+
+export type RHFToggleButtonProps<T extends FieldValues> = {
+  name: Path<T>;
+  options?: Option[];
+};
+
+export type TRHFRadioGroupsProps<T extends FieldValues> = {
+  name: Path<T>;
+  options?: Option[];
+  label: string;
+};
