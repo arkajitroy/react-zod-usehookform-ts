@@ -1,8 +1,14 @@
 import React, { useEffect } from "react";
 import { useFormContext } from "react-hook-form";
-import { Stack, TextField, Typography } from "@mui/material";
+import { Stack, TextField } from "@mui/material";
 import { TSchema } from "../../@types/schemas/ZSchemas";
-import { RHFAutoComplete, RHFDateTimePicker, RHFRadioGroup, RHFToggleButtonGroup } from "..";
+import {
+  RHFAutoComplete,
+  RHFDateTimePicker,
+  RHFRadioGroup,
+  RHFSlider,
+  RHFToggleButtonGroup,
+} from "..";
 import { useGetGenders, useGetLanguages, useGetSkills, useGetStates } from "../../services/queries";
 import RHFCheckbox from "../custom/RHFCheckbox";
 
@@ -40,8 +46,8 @@ const Users: React.FC = () => {
       <RHFToggleButtonGroup<TSchema> name="languagesSpoken" options={languagesQueryData.data} />
       <RHFRadioGroup<TSchema> name="gender" label="Gender" options={genderQueryData.data} />
       <RHFCheckbox<TSchema> name="skills" label="Skills" options={skillsQueryData.data} />
-      <RHFDateTimePicker<TSchema> name="formerEmploymentPeriod" label="Employment Period" />
-      <Typography>Former Employment Period</Typography>
+      <RHFDateTimePicker<TSchema> name="formerEmploymentPeriod" label="Registration Date & Time" />
+      <RHFSlider<TSchema> name="salaryRange" label="Salary Range" />
     </Stack>
   );
 };

@@ -28,3 +28,12 @@ export type RHFDateTimePickerProps<T extends FieldValues> = {
   name: Path<T>;
   label: string;
 };
+
+export type RHFDateRangePickerProps<T extends FieldValues> = {
+  name: Path<T>;
+};
+
+export interface RHFSliderProps<T extends FieldValues> {
+  name: Path<T>;
+  label: string;
+}
