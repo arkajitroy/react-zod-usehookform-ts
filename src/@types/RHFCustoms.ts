@@ -37,3 +37,8 @@ export interface RHFSliderProps<T extends FieldValues> {
   name: Path<T>;
   label: string;
 }
+
+export interface RHFSwitchProps<T extends FieldValues> {
+  name: Path<T>;
+  label: string;
+}

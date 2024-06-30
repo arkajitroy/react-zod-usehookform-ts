@@ -7,6 +7,7 @@ import {
   RHFDateTimePicker,
   RHFRadioGroup,
   RHFSlider,
+  RHFSwitch,
   RHFToggleButtonGroup,
 } from "..";
 import { useGetGenders, useGetLanguages, useGetSkills, useGetStates } from "../../services/queries";
@@ -48,6 +49,7 @@ const Users: React.FC = () => {
       <RHFCheckbox<TSchema> name="skills" label="Skills" options={skillsQueryData.data} />
       <RHFDateTimePicker<TSchema> name="formerEmploymentPeriod" label="Registration Date & Time" />
       <RHFSlider<TSchema> name="salaryRange" label="Salary Range" />
+      <RHFSwitch<TSchema> name="isTeacher" label="Are you a Teacher" />
     </Stack>
   );
 };

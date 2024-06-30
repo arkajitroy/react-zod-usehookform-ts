@@ -10,3 +10,4 @@ export { default as RHFToggleButtonGroup } from "./custom/RHFToggleButtonGroup";
 export { default as RHFRadioGroup } from "./custom/RHFRadioGroup";
 export { default as RHFDateTimePicker } from "./custom/RHFDateTimePicker";
 export { default as RHFSlider } from "./custom/RHFSlider";
+export { default as RHFSwitch } from "./custom/RHFSwitch";
